@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:image_hover/app/circular_text.dart';
 
+import '../animated_circular_text.dart';
 import 'grayscale_image.dart';
 
 List<String> images = [
@@ -12,9 +10,9 @@ List<String> images = [
 ];
 
 List<String> titles = [
-  'Lorem ipsum dolor sit amet, consectetur. ',
-  'Proin sodales le odio, ac nisi interdum. ',
-  'Quisque turpis volutpat, faucibus metus. ',
+  'Patricia Lebsack,julianne.oconner@kory.org',
+  'Chelsey Dietrich,karley_dach@jasper.info',
+  'Clementine Bauch,shanna@melissa.tv',
 ];
 
 double normalize({
@@ -90,6 +88,9 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
               final onHover = (offset.dx > (cardWidth * index + minPadding) && offset.dx < cardWidth * (index + 1) - minPadding) &&
                   (offset.dy > minPadding && offset.dy < _size.height - minPadding);
 
+              final name = titles[index].split(',').first;
+              final email = titles[index].split(',').last;
+
               return MouseRegion(
                 onHover: (PointerEvent? details) {
                   setState(() {
@@ -136,19 +137,12 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
                           ),
                         if (onHover)
                           Positioned(
-                            top: offset.dy - 240,
-                            left: (offset.dx - (cardWidth * index)) - 240,
-                            child: Transform.rotate(
-                              angle: pi * 2 * controller.value,
-                              child: Opacity(
-                                opacity: 0.5,
-                                child: CircularText(
-                                  text: titles[index].toUpperCase(),
-                                  radius: 240,
-                                  fontSize: 44,
-                                  color: Colors.white,
-                                ),
-                              ),
+                            top: offset.dy - 196,
+                            left: (offset.dx - (cardWidth * index)) - 196,
+                            child: AnimatedCircularText(
+                              name: name,
+                              email: email,
+                              radius: 196,
                             ),
                           ),
                       ],
